@@ -1,0 +1,31 @@
+<div class="cart-container">
+
+    <div class="cart-panel">
+        <div class="cart-item" *ngFor="let cart of cartList; let i = index" >
+            <img src="{{ cart.products.url }}" alt="" /> 
+            <div class="cart-item-details">
+                    <p class="fw-bold">{{ cart.products.name }}</p>
+                    <p>${{ cart.products.price }}</p>
+                    <label for="" class="fw-bold">Amount:</label>
+                    <input type="number" name="" (change)="changeAmount(i,$event.target)" max="10" id="" class="form-control number-input text-center" [value]="cart.amount"/>
+                  </div>
+            </div>
+            <div class="empty-cart-message " *ngIf="alertEmpty" >
+              <h1 class="fw-bold text-center text-info">Cart is Empty</h1>
+             </div>
+            <p style="display: flex;flex-direction: column;flex-wrap: wrap;"><strong>Total:${{total|number}}</strong></p>
+        </div> 
+          <form class="form-margin fw-bold " #form="ngForm" >
+            <label for="exampleFormControlInput1" class="form-label">Full name</label>
+            <input type="text" name="name" class="form-control mb-3" id="exampleFormControlInput1" required minlength="3" maxlength="16" placeholder="(minimum 3 chracters)" [(ngModel)]="name"/>
+            <label for="exampleFormControlInput2" class="form-label">Address</label>
+            <input type="text"  name="address" class="form-control mb-3" id="exampleFormControlInput2" required minlength="6" maxlength="16"  placeholder="(minimum 6 chracters)" [(ngModel)]="address"/>
+            <label for="exampleFormControlInput3" class="form-label"   >Credit card number</label>
+            <input type="text"  name="creditCard" class="form-control mb-3" id="exampleFormControlInput3"  required minlength="16" placeholder="(16-digit number)" [(ngModel)]="creditCard" />
+            <p class="text-muted mt-2">
+              We'll never share your payment details with anyone else
+            </p>
+            <input [disabled]="form.invalid" class="btn btn-primary" value="Submit" type="submit" (click)=addData(name,address,creditCard) />
+          </form>
+          <app-confirmation style="display: none;"  [confirmationData]="userData" (passData)="getData()"></app-confirmation>
+</div>
