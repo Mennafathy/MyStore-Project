@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import Product from 'src/app/models/product';
 import cartItem from 'src/app/models/Cart';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -17,6 +17,7 @@ export class CartComponent {
   public creditCard: string = '';
   alertEmpty: boolean = false;
   public userData: any[] = [];
+  products: Product =new Product();
 
   constructor(private cartService: CartService,private router:Router) {
     
@@ -46,6 +47,39 @@ export class CartComponent {
     this.cartList[i].amount = Number(data.value);
     if (this.cartList[i].amount === 0) {
       this.cartService.deleteProduct(i);
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+      swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: `You want to Delete this Product `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your Product has been deleted.',
+            'success'
+          )
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary Product is safe :)',
+            'error'
+          )
+        }
+      })
       this.emptyCart();
     }
     this.total = 0;
@@ -61,4 +95,5 @@ export class CartComponent {
       this.alertEmpty = true;
     }
   }
+  
 }

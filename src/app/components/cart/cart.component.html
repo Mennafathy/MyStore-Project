@@ -15,17 +15,33 @@
              </div>
             <p style="display: flex;flex-direction: column;flex-wrap: wrap;"><strong>Total:${{total|number}}</strong></p>
         </div> 
-          <form class="form-margin fw-bold " #form="ngForm" >
+          <form class="form-margin fw-bold " #form="ngForm" (ngSubmit)="addData(name,address,creditCard)" >
             <label for="exampleFormControlInput1" class="form-label">Full name</label>
-            <input type="text" name="name" class="form-control mb-3" id="exampleFormControlInput1" required minlength="3" maxlength="16" placeholder="(minimum 3 chracters)" [(ngModel)]="name"/>
+            <input type="text" name="name" #inputName="ngModel"  class="form-control mb-3" id="exampleFormControlInput1"  required minlength="3" maxlength="16" placeholder="(minimum 3 characters)" [(ngModel)]="name"/>
+            <div class ="is-invalid"  *ngIf="inputName?.touched&&inputName?.invalid">
+              <p class="text-danger" *ngIf="inputName.errors?.['required']"> Name is Required</p>
+              <p class="text-danger" *ngIf="inputName.errors?.['maxlength']">Maximum 16 characters  is Required</p>
+              <p class="text-danger" *ngIf="inputName.errors?.['minlength']">Minimum 3 characters is Required </p>
+            </div>
+          
             <label for="exampleFormControlInput2" class="form-label">Address</label>
-            <input type="text"  name="address" class="form-control mb-3" id="exampleFormControlInput2" required minlength="6" maxlength="16"  placeholder="(minimum 6 chracters)" [(ngModel)]="address"/>
-            <label for="exampleFormControlInput3" class="form-label"   >Credit card number</label>
-            <input type="text"  name="creditCard" class="form-control mb-3" id="exampleFormControlInput3"  required minlength="16" placeholder="(16-digit number)" [(ngModel)]="creditCard" />
+            <input type="text"  name="address"  #add="ngModel" class="form-control mb-3" id="exampleFormControlInput2"  required minlength="6" maxlength="16"  placeholder="(minimum 6 characters)" [(ngModel)]="address"/>
+            <div class ="is-invalid"  *ngIf="add?.touched&&add?.invalid">
+              <p class="text-danger" *ngIf="add.errors?.['required']"> Address is Required</p>
+              <p class="text-danger" *ngIf="add.errors?.['minlength']"> Minimum 6 characters is Required</p>
+              <p class="text-danger" *ngIf="add.errors?.['maxlength']"> Maximum 16 characters  is Required</p>
+            </div>
+            <label for="exampleFormControlInput3" class="form-label" >Credit card number</label>
+            <input type="text"  name="creditCard"  #card="ngModel" class="form-control mb-3" id="exampleFormControlInput3"   required minlength="16" placeholder="(16-digit number)" [(ngModel)]="creditCard" />
+            <div class ="is-invalid"  *ngIf="card?.touched&&card?.invalid">
+              <p class="text-danger" *ngIf="card.errors?.['required']"> CreditCard is Required</p>
+              <p class="text-danger" *ngIf="card.errors?.['maxlength']"> Maximum 16 characters is Required</p>
+              <p class="text-danger" *ngIf="card.errors?.['minlength']"> Minimum 16 characters is Required</p>
+            </div>
             <p class="text-muted mt-2">
               We'll never share your payment details with anyone else
             </p>
-            <input [disabled]="form.invalid" class="btn btn-primary" value="Submit" type="submit" (click)=addData(name,address,creditCard) />
+            <input [disabled]="form.invalid" class="btn btn-primary" value="Submit" type="submit"  />
           </form>
           <app-confirmation style="display: none;"  [confirmationData]="userData" (passData)="getData()"></app-confirmation>
 </div>

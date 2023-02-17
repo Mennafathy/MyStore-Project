@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import  Product  from 'src/app/models/product';
 import { CartService } from 'src/app/services/cart.service';
 import  cartItem  from 'src/app/models/Cart';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-product-item',
   templateUrl: './product-item.component.html',
@@ -17,7 +17,13 @@ export class ProductItemComponent {
   AddToCart(product: Product)
   {
     this.addAmount.emit(new cartItem(product, this.amount))
-    alert(`${product.name} has Been Added Successfully!`)
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: `${product.name} has Been Added Successfully`,
+      showConfirmButton: false,
+      timer: 1500
+    })
   }
 
 }

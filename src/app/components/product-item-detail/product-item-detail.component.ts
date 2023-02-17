@@ -4,6 +4,7 @@ import Product from 'src/app/models/product';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import cartItem from '../../models/Cart';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-product-item-detail',
   templateUrl: './product-item-detail.component.html',
@@ -30,7 +31,13 @@ export class ProductItemDetailComponent {
   }
   AddToCart(product: Product) {
     this.cartService.addProducts(new cartItem(product, this.amount));
-    alert(`${product.name} has Been Added Successfully!`);
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: `${product.name} has Been Added Successfully`,
+      showConfirmButton: false,
+      timer: 1500
+    })
   }
   getProductById() {
     this.productService.getProducts().subscribe((res) => {
