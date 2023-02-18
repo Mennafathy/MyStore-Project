@@ -12,7 +12,7 @@ ng serve --o
 
 
 ## This Project Cover
-* Angular conponent 
+* Angular component 
 * Angular services
 * Angular HttpClient
 * Angular Template Form

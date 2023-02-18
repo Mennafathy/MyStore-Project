@@ -30,9 +30,6 @@ export class CartService {
   }
 
   deleteProduct(index: number) {
-    // if(confirm(`Are you Sure You want to delete this ${this.cartList[index].products.name}?`))
     this.cartList.splice(index, 1);
-    // alert(`One product has been deleted from cart successfully`)
-    // alert(`${this.cartList[index].products.name} has been deleted from cart successfully `)
   }
 }
