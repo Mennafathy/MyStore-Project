@@ -32,7 +32,7 @@
               <p class="text-danger" *ngIf="add.errors?.['maxlength']"> Maximum 16 characters  is Required</p>
             </div>
             <label for="exampleFormControlInput3" class="form-label" >Credit card number</label>
-            <input type="text"  name="creditCard"  #card="ngModel" class="form-control mb-3" id="exampleFormControlInput3"   required minlength="16" placeholder="(16-digit number)" [(ngModel)]="creditCard" pattern="[0-9]*"/>
+            <input type="text"  name="creditCard"  #card="ngModel" class="form-control mb-3" id="exampleFormControlInput3"   required minlength="16" maxlength="16" placeholder="(16-digit number)" [(ngModel)]="creditCard" pattern="[0-9]*"/>
             <div class ="is-invalid"  *ngIf="card?.touched&&card?.invalid">
               <p class="text-danger" *ngIf="card.errors?.['required']"> CreditCard is Required</p>
               <p class="text-danger" *ngIf="card.errors?.['maxlength']"> Maximum 16 characters is Required</p>
